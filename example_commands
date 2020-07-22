@@ -1,0 +1,30 @@
+./create_board -d=10 -w=5 -h=7 -l=100 -s=10 best.jpg
+
+g++ -L/usr/local/lib -lopencv_core -lopencv_imgproc -lopencv_imgcodecs -lopencv_highgui -lopencv_features2d -lopencv_calib3d -lopencv_video -lopencv_videoio -lopencv_aruco  -o create_board create_board.cpp
+
+
+
+
+intrinsic matrix = K = [[f_x, s, x_0], [0, f_y, y_0], [0, 0, 1]]
+
+
+F_x := focal length in world units (in units of mm) (Its the RW Distance, dummy)
+f_x := focal length in pixel units
+W := width in mm of cameras film (or digital sensor)
+w_px := width of image in pixels
+
+F_x = f_x ( W / w_px)
+
+F_y = f_y ( H / h_px)
+
+X_0 = x_0 ( W / w_px)
+Y_0 = y_0 ( H / h_px)
+
+
+
+./create_board_charuco -w=5 -h=7 --sl=200 --ml=120 -d=10 test.jpg
+
+./calibrate_camera -d=10 -w=5 -h=7 -l=100 -s=10 test
+
+./calibrate_camera_charuco -w=5 -h=7 -sl=0.04 -ml=0.02 -d=10 test_charuco
+./calibrate_camera_charuco -w=5 -h=7 -sl=0.0356 -ml=0.02134 -d=10 charuco_calibration_output.txt
